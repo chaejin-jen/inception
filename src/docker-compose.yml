@@ -1,0 +1,53 @@
+services:
+  web-server:
+    container_name: nginx
+    build: ./requirements/nginx
+    depends_on:
+      - wordpress
+    restart: always
+    ports:
+      - "443:443"
+    networks:
+      - intra
+    volumes:
+      - wp_data:/var/www/html
+  db:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
+    expose:
+      - 3306
+    networks:
+      - intra
+  wordpress:
+    container_name: wordpress
+    build: 
+      context: ./requirements/wordpress
+      # args:
+      #   - MARIADB_DATA_DIR
+      #   - MYSQL_DATABASE
+      #   - MYSQL_USER
+      #   - MYSQL_PASSWORD
+    env: .env
+    environment:
+      - MARIADB_DATA_DIR
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+    depends_on:
+      - db
+    volumes:
+      - wp_data:/var/www/html
+    expose: 
+      - 9000
+    restart: always
+    networks:
+      - intra
+volumes:
+  db_data:
+  wp_data:
+networks:
+    intra:
+        driver: bridge
