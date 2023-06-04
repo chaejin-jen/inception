@@ -6,7 +6,7 @@ services:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
     image: mariadb
-    # container_name: mariadb
+    container_name: mariadb
     volumes:
       - db-data:/var/lib/mysql/
     environment:
@@ -39,7 +39,7 @@ services:
       WP_ADMIN_PW: ${WP_ADMIN_PW}
       WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
     image: wordpress
-    # container_name: wordpress
+    container_name: wordpress
     depends_on:
       - mariadb
     volumes:
@@ -55,7 +55,7 @@ services:
       context: ./requirements/nginx
       dockerfile: Dockerfile
     image: nginx
-    # container_name: nginx
+    container_name: nginx
     depends_on:
       - wordpress
     ports:
