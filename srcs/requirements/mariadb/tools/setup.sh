@@ -16,10 +16,8 @@ if ! [ -f /var/lib/mysql/.mysql.setup.ok ]; then
 
     mysql -u$MYSQL_ROOT -e "ALTER USER '$MYSQL_ROOT'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD'; FLUSH PRIVILEGES";
     
-    # Execute the client to handle root password
-    # mysql $MYSQL_DATABASE -u$MYSQL_ROOT -p$MYSQL_ROOT_PASSWORD
     mysqladmin -u$MYSQL_ROOT -p$MYSQL_ROOT_PASSWORD shutdown
     touch /var/lib/mysql/.mysql.setup.ok
 fi
 
-mysqld --user=mysql
+service mysql start | exec mysqld --user=mysql

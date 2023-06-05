@@ -19,5 +19,3 @@ WORKDIR /var/www/html/wordpress
 EXPOSE 9000
 
 ENTRYPOINT ["sh", "/usr/local/bin/script.sh"]
-
-# CMD ["/usr/sbin/php-fpm81", "-F"]
