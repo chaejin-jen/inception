@@ -19,4 +19,4 @@ echo "wp setup!"
 
 chown -R www-data:www-data /var/www/html
 
-exec /usr/sbin/php-fpm81 -F
+exec "$@"

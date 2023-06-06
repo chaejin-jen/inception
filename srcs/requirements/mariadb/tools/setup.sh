@@ -2,9 +2,9 @@
 
 chown -R mysql:mysql /var/lib/mysql
 
-if ! [ -f /var/lib/mysql/.mysql.setup.ok ]; then 
+if [ ! -e /var/lib/mysql/.mysql.setup.ok ]; then 
     echo "mysql setup"
-	service mysql start
+    service mysql start
     
     # init directory
     mysql_install_db --user=mysql --skip-test-db --skip-log-bin --datadir=/var/lib/mysql > /dev/null
@@ -20,4 +20,4 @@ if ! [ -f /var/lib/mysql/.mysql.setup.ok ]; then
     touch /var/lib/mysql/.mysql.setup.ok
 fi
 
-service mysql start | exec mysqld --user=mysql
+exec "$@"
