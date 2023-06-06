@@ -1,6 +1,8 @@
 #!/bin/sh
 
-chown -R mysql:mysql /var/lib/mysql
+# create /var/lib/mysql /run/mysqld with appropriate ownership
+mkdir -p /var/lib/mysql /run/mysqld/
+chown -R mysql:mysql /var/lib/mysql /run/mysqld/
 
 if [ ! -e /var/lib/mysql/.mysql.setup.ok ]; then 
     echo "mysql setup"
